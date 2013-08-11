@@ -1,13 +1,11 @@
 package com.fs.humanResources.view.address;
 
-import com.fs.humanResources.view.employee.EmployeeViewBean;
+import com.fs.common.BaseUnitTest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
-
-public class AddressViewBeanTest {
+public class AddressViewBeanTest extends BaseUnitTest{
 
     AddressViewBean addressViewBean;
 

@@ -1,6 +1,7 @@
 package com.fs.humanResources.view.employee;
 
 
+import com.fs.common.BaseUnitTest;
 import com.fs.humanResources.view.address.AddressViewBean;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,7 +9,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
-public class EmployeeViewBeanTest {
+public class EmployeeViewBeanTest extends BaseUnitTest {
 
     EmployeeViewBean employeeViewBean;
 
