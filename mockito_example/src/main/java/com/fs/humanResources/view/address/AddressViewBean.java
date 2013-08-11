@@ -1,5 +1,7 @@
 package com.fs.humanResources.view.address;
 
+import com.fs.humanResources.model.address.entities.Address;
+
 public class AddressViewBean {
 
     private String houseNumber;
@@ -14,6 +16,14 @@ public class AddressViewBean {
         this.addressSecondLine = addressSecondLine;
         this.townCity = townCity;
         this.postCode = postCode;
+    }
+
+    public AddressViewBean(Address address) {
+        this(address.getHouseNumber(),
+                address.getAddressFirstLine(),
+                address.getAddressSecondLine(),
+                address.getTownCity(),
+                address.getPostCode());
     }
 
     public String getHouseNumber() {

@@ -1,4 +1,5 @@
 package com.fs.humanResources.view.employee;
+import com.fs.humanResources.model.employee.entities.Employee;
 import com.fs.humanResources.view.address.AddressViewBean;
 
 import java.util.Date;
@@ -17,6 +18,12 @@ public class EmployeeViewBean {
         this.dateOfDirth = dateOfDirth;
         this.empolyeeId = empolyeeId;
         this.address = address;
+    }
+
+    public EmployeeViewBean(Employee employee) {
+        this(employee.getFirstName(),employee.getLastName(),
+                employee.getDateOfDirth(),employee.getEmpolyeeId(),
+               new AddressViewBean(employee.getAddress()));
     }
 
     public String getFirstName() {
