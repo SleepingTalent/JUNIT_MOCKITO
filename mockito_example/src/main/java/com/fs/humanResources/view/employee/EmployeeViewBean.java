@@ -1,4 +1,5 @@
 package com.fs.humanResources.view.employee;
+import com.fs.humanResources.model.address.helper.AddressHelper;
 import com.fs.humanResources.model.employee.entities.Employee;
 import com.fs.humanResources.view.address.AddressViewBean;
 
@@ -23,7 +24,7 @@ public class EmployeeViewBean {
     public EmployeeViewBean(Employee employee) {
         this(employee.getFirstName(),employee.getLastName(),
                 employee.getDateOfDirth(),employee.getEmpolyeeId(),
-               new AddressViewBean(employee.getAddress()));
+               new AddressViewBean(AddressHelper.findPrimaryAddress(employee.getAddressList())));
     }
 
     public String getFirstName() {

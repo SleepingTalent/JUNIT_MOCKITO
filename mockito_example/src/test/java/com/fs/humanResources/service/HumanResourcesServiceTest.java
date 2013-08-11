@@ -2,6 +2,7 @@ package com.fs.humanResources.service;
 
 import com.fs.common.BaseUnitTest;
 import com.fs.humanResources.model.address.entities.Address;
+import com.fs.humanResources.model.address.helper.AddressHelper;
 import com.fs.humanResources.model.employee.dao.EmployeeDAO;
 import com.fs.humanResources.model.employee.entities.Employee;
 import com.fs.humanResources.model.exception.NoResultsException;
@@ -61,7 +62,9 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
         Assert.assertEquals(employee.getEmpolyeeId(), actual.getEmpolyeeId());
         Assert.assertEquals(employee.getDateOfDirth(), actual.getDateOfDirth());
 
-        Address expectedAddress = employee.getAddress();
+        Assert.assertEquals(employee.getAddressList().size(), 1);
+
+        Address expectedAddress = employee.getAddressList().get(0);
         AddressViewBean actualAddress = actual.getAddress();
 
         Assert.assertEquals(expectedAddress.getHouseNumber(), actualAddress.getHouseNumber());
@@ -88,8 +91,23 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
         String townCity = "Progammer City";
         String postCode = "AB1 CDXY";
 
-        Address address = new Address(houseNumber, addressFirstLine, addressSecondLine, townCity, postCode);
-        return new Employee(firstName,lastName,dataOfBirth,employeeId,address);
+        Address address = new Address();
+        address.setHouseNumber(houseNumber);
+        address.setAddressFirstLine(addressFirstLine);
+        address.setAddressSecondLine(addressSecondLine);
+        address.setTownCity(townCity);
+        address.setPostCode(postCode);
+        address.setPrimaryAddress(true);
+
+        Employee employee = new Employee();
+        employee.setId(12345l);
+        employee.setEmpolyeeId(employeeId);
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setDateOfDirth(dataOfBirth);
+        employee.setAddressList(AddressHelper.convertToList(address));
+
+        return employee;
     }
 
 }
