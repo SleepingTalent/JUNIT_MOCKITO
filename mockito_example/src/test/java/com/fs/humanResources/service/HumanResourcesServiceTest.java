@@ -69,11 +69,6 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
         Assert.assertEquals(expectedAddress.getAddressSecondLine(), actualAddress.getAddressSecondLine());
         Assert.assertEquals(expectedAddress.getTownCity(), actualAddress.getTownCity());
         Assert.assertEquals(expectedAddress.getPostCode(), actualAddress.getPostCode());
-
-
-
-
-
     }
 
     @Test(expected = EmployeeNotFoundException.class)
