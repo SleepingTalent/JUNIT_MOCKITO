@@ -23,7 +23,7 @@ public class EmployeeViewBean {
 
     public EmployeeViewBean(Employee employee) {
         this(employee.getFirstName(),employee.getLastName(),
-                employee.getDateOfDirth(),employee.getEmpolyeeId(),
+                employee.getDateOfDirth(),employee.getEmployeeId(),
                new AddressViewBean(AddressHelper.findPrimaryAddress(employee.getAddressList())));
     }
 
