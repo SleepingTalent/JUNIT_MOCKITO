@@ -11,6 +11,14 @@ public class Address extends BaseEntity {
     private String townCity;
     private String postCode;
 
+    public Address(String houseNumber, String addressFirstLine, String addressSecondLine, String townCity, String postCode) {
+        this.houseNumber = houseNumber;
+        this.addressFirstLine = addressFirstLine;
+        this.addressSecondLine = addressSecondLine;
+        this.townCity = townCity;
+        this.postCode = postCode;
+    }
+
     public String getHouseNumber() {
         return houseNumber;
     }
