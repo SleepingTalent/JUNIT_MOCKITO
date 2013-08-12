@@ -40,7 +40,6 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
         foundEmployeeId = 12345l;
         notFoundEmployeeId = 4567l;
 
-        MockitoAnnotations.initMocks(this);
         employee = createEmployee();
 
         when(employeeDAO.getEmployeeDetails(eq(foundEmployeeId))).thenReturn(employee);

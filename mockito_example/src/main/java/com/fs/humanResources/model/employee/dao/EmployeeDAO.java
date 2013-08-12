@@ -6,6 +6,10 @@ import com.fs.humanResources.model.exception.NoResultsException;
 
 public class EmployeeDAO extends BaseDAO<Employee> {
 
+    public EmployeeDAO() {
+        super(Employee.class);
+    }
+
     public Employee getEmployeeDetails(Long employeeId) throws NoResultsException {
         return null;  //To change body of created methods use File | Settings | File Templates.
     }

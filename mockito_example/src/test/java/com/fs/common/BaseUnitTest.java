@@ -1,4 +1,10 @@
 package com.fs.common;
 
-public class BaseUnitTest {
+import org.mockito.MockitoAnnotations;
+
+public abstract class BaseUnitTest {
+
+    protected BaseUnitTest() {
+        MockitoAnnotations.initMocks(this);
+    }
 }

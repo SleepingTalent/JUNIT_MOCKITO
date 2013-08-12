@@ -1,6 +1,11 @@
 package com.fs.humanResources.model.address.dao;
 
-public class AddressDAO {
+import com.fs.humanResources.model.address.entities.Address;
+import com.fs.humanResources.model.common.dao.BaseDAO;
 
-    //blah
+public class AddressDAO extends BaseDAO<Address>{
+
+    public AddressDAO() {
+        super(Address.class);
+    }
 }
