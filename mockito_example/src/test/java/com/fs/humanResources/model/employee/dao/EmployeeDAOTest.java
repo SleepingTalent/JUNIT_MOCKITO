@@ -19,6 +19,8 @@ import static org.mockito.Mockito.when;
 
 public class EmployeeDAOTest extends BaseUnitTest {
 
+    public static final String COUNT_QUERY = "SELECT count(o) from Employee o ";
+    public static final String EMPLOYEE_ID_QUERY = "select employee from Employee employee where employee.employeeId=:thisEmployeeId";
     @InjectMocks
     EmployeeDAO employeeDAO;
 
@@ -26,7 +28,10 @@ public class EmployeeDAOTest extends BaseUnitTest {
     EntityManager entityManager;
 
     @Mock
-    Query query;
+    Query countQuery;
+
+    @Mock
+    Query employeeIdQuery;
 
     Long expectedCount;
 
@@ -34,11 +39,15 @@ public class EmployeeDAOTest extends BaseUnitTest {
 
     @Before
     public void setUp() {
-        expectedCount = new Long(1234l);
+        expectedCount = new Long(10l);
         employee = new Employee();
+        employee.setId(1234l);
 
-        when(entityManager.createQuery(anyString())).thenReturn(query);
-        when(query.getSingleResult()).thenReturn(expectedCount);
+        when(entityManager.createQuery(eq(COUNT_QUERY))).thenReturn(countQuery);
+        when(countQuery.getSingleResult()).thenReturn(expectedCount);
+
+        when(entityManager.createQuery(eq(EMPLOYEE_ID_QUERY))).thenReturn(employeeIdQuery);
+        when(employeeIdQuery.getSingleResult()).thenReturn(employee);
     }
 
     @Test
@@ -47,8 +56,8 @@ public class EmployeeDAOTest extends BaseUnitTest {
 
         Assert.assertEquals(expectedCount, actualCount);
 
-        verify(entityManager, times(1)).createQuery(eq("SELECT count(o) from Employee o "));
-        verify(query,times(1)).getSingleResult();
+        verify(entityManager, times(1)).createQuery(eq(COUNT_QUERY));
+        verify(countQuery,times(1)).getSingleResult();
     }
 
     @Test
@@ -86,4 +95,16 @@ public class EmployeeDAOTest extends BaseUnitTest {
 
         verify(entityManager, times(1)).find(any(Class.class),eq(employeeId));
     }
+
+    @Test
+    public void getEmployeeDetails_returns_expected_employee() {
+        Long employeeId = 1234l;
+
+        Employee actualEmployee = employeeDAO.getEmployeeDetails(employeeId);
+        Assert.assertEquals(employee.getId(), actualEmployee.getId());
+
+        verify(entityManager, times(1)).createQuery(EMPLOYEE_ID_QUERY);
+        verify(employeeIdQuery,times(1)).getSingleResult();
+    }
+
 }
