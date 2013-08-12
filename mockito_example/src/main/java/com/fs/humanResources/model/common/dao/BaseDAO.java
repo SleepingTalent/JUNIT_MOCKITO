@@ -20,6 +20,7 @@ public abstract class BaseDAO<T> {
                 "SELECT count(o) from ");
 
         queryString.append(entityClass.getSimpleName()).append(" o ");
+
         final Query query = this.entityManager.createQuery(queryString.toString());
 
         return (Long) query.getSingleResult();
