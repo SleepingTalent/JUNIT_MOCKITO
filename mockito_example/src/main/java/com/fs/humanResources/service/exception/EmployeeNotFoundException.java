@@ -1,10 +1,10 @@
 package com.fs.humanResources.service.exception;
 
-import com.fs.humanResources.model.exception.NoResultsException;
+import javax.persistence.NoResultException;
 
 public class EmployeeNotFoundException extends Throwable {
 
-    public EmployeeNotFoundException(NoResultsException e) {
+    public EmployeeNotFoundException(NoResultException e) {
         super(e);
     }
 }

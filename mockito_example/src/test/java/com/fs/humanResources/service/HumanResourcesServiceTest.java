@@ -5,17 +5,16 @@ import com.fs.humanResources.model.address.entities.Address;
 import com.fs.humanResources.model.address.helper.AddressHelper;
 import com.fs.humanResources.model.employee.dao.EmployeeDAO;
 import com.fs.humanResources.model.employee.entities.Employee;
-import com.fs.humanResources.model.exception.NoResultsException;
 import com.fs.humanResources.service.exception.EmployeeNotFoundException;
 import com.fs.humanResources.view.address.AddressViewBean;
 import com.fs.humanResources.view.employee.EmployeeViewBean;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
+import javax.persistence.NoResultException;
 import java.util.Date;
 
 import static org.mockito.Matchers.anyLong;
@@ -36,24 +35,24 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
     Long notFoundEmployeeId;
 
     @Before
-    public void setUp() throws NoResultsException {
+    public void setUp() throws NoResultException {
         foundEmployeeId = 12345l;
         notFoundEmployeeId = 4567l;
 
         employee = createEmployee();
 
         when(employeeDAO.getEmployeeDetails(eq(foundEmployeeId))).thenReturn(employee);
-        when(employeeDAO.getEmployeeDetails(eq(notFoundEmployeeId))).thenThrow(new NoResultsException());
+        when(employeeDAO.getEmployeeDetails(eq(notFoundEmployeeId))).thenThrow(new NoResultException());
     }
 
     @Test
-    public void getEmployeeDetails_verify_expected_methods_called() throws NoResultsException, EmployeeNotFoundException {
+    public void getEmployeeDetails_verify_expected_methods_called() throws NoResultException, EmployeeNotFoundException {
         humanResourcesService.getEmployeeDetails(foundEmployeeId);
         verify(employeeDAO,times(1)).getEmployeeDetails(anyLong());
     }
 
     @Test
-    public void getEmployeeDetails_returns_expected_employee() throws NoResultsException, EmployeeNotFoundException {
+    public void getEmployeeDetails_returns_expected_employee() throws NoResultException, EmployeeNotFoundException {
         EmployeeViewBean actual = humanResourcesService.getEmployeeDetails(foundEmployeeId);
 
         Assert.assertEquals(employee.getFirstName(), actual.getFirstName());
@@ -74,7 +73,7 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
     }
 
     @Test(expected = EmployeeNotFoundException.class)
-    public void getEmployeeDetails_throws_exception_when_employee_not_found() throws NoResultsException, EmployeeNotFoundException {
+    public void getEmployeeDetails_throws_exception_when_employee_not_found() throws NoResultException, EmployeeNotFoundException {
         humanResourcesService.getEmployeeDetails(notFoundEmployeeId);
     }
 
