@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
@@ -33,9 +34,13 @@ public class AddressDAOTest extends BaseUnitTest {
 
     Long expectedCount;
 
+    Address address;
+
     @Before
     public void setUp() {
         expectedCount = new Long(1234l);
+
+        address = new Address();
 
         when(entityManager.createQuery(anyString())).thenReturn(query);
         when(query.getSingleResult()).thenReturn(expectedCount);
@@ -52,16 +57,14 @@ public class AddressDAOTest extends BaseUnitTest {
     }
 
     @Test
-    public void create_persits_expected_employee() {
-        Address address = new Address();
+    public void create_persits_expected_address() {
         addressDAO.create(address);
 
         verify(entityManager, times(1)).persist(eq(address));
     }
 
     @Test
-    public void delete_removes_expected_employee() {
-        Address address = new Address();
+    public void delete_removes_expected_address() {
         addressDAO.delete(address);
 
         verify(entityManager, times(1)).merge(eq(address));
@@ -69,10 +72,18 @@ public class AddressDAOTest extends BaseUnitTest {
     }
 
     @Test
-    public void delete_merges_expected_employee() {
-        Address address = new Address();
+    public void delete_merges_expected_address() {
         addressDAO.update(address);
 
         verify(entityManager, times(1)).merge(eq(address));
+    }
+
+    @Test
+    public void findById_looksfor_expected_address() {
+        Long addressId = 1234l;
+
+        addressDAO.findById(addressId);
+
+        verify(entityManager, times(1)).find(any(Class.class),eq(addressId));
     }
 }

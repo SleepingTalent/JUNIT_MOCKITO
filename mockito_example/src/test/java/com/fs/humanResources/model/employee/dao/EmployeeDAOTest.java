@@ -12,9 +12,7 @@ import org.mockito.Mock;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,9 +30,12 @@ public class EmployeeDAOTest extends BaseUnitTest {
 
     Long expectedCount;
 
+    Employee employee;
+
     @Before
     public void setUp() {
         expectedCount = new Long(1234l);
+        employee = new Employee();
 
         when(entityManager.createQuery(anyString())).thenReturn(query);
         when(query.getSingleResult()).thenReturn(expectedCount);
@@ -75,5 +76,14 @@ public class EmployeeDAOTest extends BaseUnitTest {
         employeeDAO.update(employee);
 
         verify(entityManager, times(1)).merge(eq(employee));
+    }
+
+    @Test
+    public void findById_looksfor_expected_employee() {
+        Long employeeId = 1234l;
+
+        employeeDAO.findById(employeeId);
+
+        verify(entityManager, times(1)).find(any(Class.class),eq(employeeId));
     }
 }
