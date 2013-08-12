@@ -14,9 +14,7 @@ import org.mockito.Mock;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -36,14 +34,28 @@ public class AddressDAOTest extends BaseUnitTest {
 
     Address address;
 
+    Employee employee;
+
+    Long addressId = 1234l;
+
+    Long employeeId = 5678l;
+
     @Before
     public void setUp() {
         expectedCount = new Long(1234l);
 
         address = new Address();
+        address.setId(addressId);
+
+        employee = new Employee();
+        employee.setId(employeeId);
+
+        address.setEmployee(employee);
 
         when(entityManager.createQuery(anyString())).thenReturn(query);
         when(query.getSingleResult()).thenReturn(expectedCount);
+
+        when(entityManager.find(any(Class.class), anyLong())).thenReturn(address);
     }
 
     @Test
@@ -82,7 +94,10 @@ public class AddressDAOTest extends BaseUnitTest {
     public void findById_looksfor_expected_address() {
         Long addressId = 1234l;
 
-        addressDAO.findById(addressId);
+        Address actualAddress = addressDAO.findById(addressId);
+
+        Assert.assertEquals(address.getId(), actualAddress.getId());
+        Assert.assertEquals(employee.getId(), actualAddress.getEmployee().getId());
 
         verify(entityManager, times(1)).find(any(Class.class),eq(addressId));
     }

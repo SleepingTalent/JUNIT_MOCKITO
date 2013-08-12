@@ -7,7 +7,11 @@ import java.util.List;
 
 public class AddressHelper {
 
-    public static Address findPrimaryAddress(List<Address> addressList) {
+    public AddressHelper() {
+
+    }
+
+    public Address findPrimaryAddress(List<Address> addressList) {
         Address primaryAddress = null;
 
         for (Address address : addressList) {
@@ -18,7 +22,7 @@ public class AddressHelper {
        return primaryAddress;
     }
 
-    public static List<Address> convertToList(Address... addresses) {
+    public List<Address> convertToList(Address... addresses) {
         List<Address> addressList = new ArrayList();
 
         for(Address address : addresses ) {

@@ -103,7 +103,11 @@ public class HumanResourcesServiceTest extends BaseUnitTest {
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
         employee.setDateOfDirth(dataOfBirth);
-        employee.setAddressList(AddressHelper.convertToList(address));
+
+        AddressHelper addressHelper = new AddressHelper();
+        employee.setAddressList(addressHelper.convertToList(address));
+
+        address.setEmployee(employee);
 
         return employee;
     }

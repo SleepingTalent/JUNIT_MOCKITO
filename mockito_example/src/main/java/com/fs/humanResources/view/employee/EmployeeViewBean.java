@@ -14,17 +14,24 @@ public class EmployeeViewBean {
     private AddressViewBean address;
 
     public EmployeeViewBean(String firstName, String lastName, Date dateOfDirth, Long empolyeeId, AddressViewBean address) {
+        this(firstName,lastName,dateOfDirth,empolyeeId);
+
+        this.address = address;
+    }
+
+    public EmployeeViewBean(String firstName, String lastName, Date dateOfDirth, Long empolyeeId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfDirth = dateOfDirth;
         this.empolyeeId = empolyeeId;
-        this.address = address;
     }
 
     public EmployeeViewBean(Employee employee) {
         this(employee.getFirstName(),employee.getLastName(),
-                employee.getDateOfDirth(),employee.getEmployeeId(),
-               new AddressViewBean(AddressHelper.findPrimaryAddress(employee.getAddressList())));
+                employee.getDateOfDirth(),employee.getEmployeeId());
+
+       AddressHelper addressHelper = new AddressHelper();
+       this.address =  new AddressViewBean(addressHelper.findPrimaryAddress(employee.getAddressList()));
     }
 
     public String getFirstName() {
