@@ -54,7 +54,7 @@ public class EmployeeViewBeanTest extends BaseUnitTest {
 
     @Test
     public void dateOfBirthSetAsExpected() {
-        Assert.assertEquals(dataOfBirth, employeeViewBean.getDateOfDirth());
+        Assert.assertEquals(dataOfBirth, employeeViewBean.getDateOfBirth());
     }
 
     @Test

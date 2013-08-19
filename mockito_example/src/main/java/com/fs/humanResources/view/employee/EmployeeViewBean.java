@@ -9,26 +9,26 @@ public class EmployeeViewBean {
 
     private String firstName;
     private String lastName;
-    private Date dateOfDirth;
+    private Date dateOfBirth;
     private Long empolyeeId;
     private AddressViewBean address;
 
-    public EmployeeViewBean(String firstName, String lastName, Date dateOfDirth, Long empolyeeId, AddressViewBean address) {
-        this(firstName,lastName,dateOfDirth,empolyeeId);
+    public EmployeeViewBean(String firstName, String lastName, Date dateOfBirth, Long empolyeeId, AddressViewBean address) {
+        this(firstName,lastName, dateOfBirth,empolyeeId);
 
         this.address = address;
     }
 
-    public EmployeeViewBean(String firstName, String lastName, Date dateOfDirth, Long empolyeeId) {
+    public EmployeeViewBean(String firstName, String lastName, Date dateOfBirth, Long empolyeeId) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfDirth = dateOfDirth;
+        this.dateOfBirth = dateOfBirth;
         this.empolyeeId = empolyeeId;
     }
 
     public EmployeeViewBean(Employee employee) {
         this(employee.getFirstName(),employee.getLastName(),
-                employee.getDateOfDirth(),employee.getEmployeeId());
+                employee.getDateOfBirth(),employee.getEmployeeId());
 
        AddressHelper addressHelper = new AddressHelper();
        this.address =  new AddressViewBean(addressHelper.findPrimaryAddress(employee.getAddressList()));
@@ -42,8 +42,8 @@ public class EmployeeViewBean {
         return lastName;
     }
 
-    public Date getDateOfDirth() {
-        return dateOfDirth;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public Long getEmpolyeeId() {
